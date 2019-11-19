@@ -1,3 +1,5 @@
+[![Github All Releases](https://img.shields.io/github/downloads/Nugetzrul3/CPU-GUI-Miner/total.svg)]()
+
 # CPU-GUI-Miner
 ##### A CPU GUI miner that supports a variety CPU mining algorithms
 
