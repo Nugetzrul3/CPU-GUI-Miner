@@ -192,6 +192,14 @@ class Ui_Form(object):
         self.pushButton_6.clicked.connect(self.process1.kill)
         self.pushButton_6.clicked.connect(self.process2.kill)
         self.pushButton_6.clicked.connect(self.stop_and_quit)
+        self.pushButton_2.setFont(QtGui.QFont("Nirmala UI", 8))
+        self.pushButton_3.setFont(QtGui.QFont("Nirmala UI", 8))
+        self.pushButton_4.setFont(QtGui.QFont("Nirmala UI", 8))
+        self.pushButton_5.setFont(QtGui.QFont("Nirmala UI", 8))
+        self.pushButton_6.setFont(QtGui.QFont("Nirmala UI", 8))
+        self.pushButton.setFont(QtGui.QFont("Nirmala UI", 8))
+
+        self.combobox.setFont(QtGui.QFont("Nirmala UI", 8))
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
