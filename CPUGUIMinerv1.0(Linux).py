@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 # Form implementation generated from reading ui file 'untitled.ui'
@@ -11,6 +12,7 @@ import sys
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+path = 'cpuminerrkz/'
 
 class Ui_Form(object):
 
@@ -138,9 +140,6 @@ class Ui_Form(object):
         self.combobox.setObjectName('combobox')
         self.label_13 = QtWidgets.QLabel(Form)
         self.label_13.setGeometry(290, 200, 61, 20)
-        self.pushButton_4 = QtWidgets.QPushButton(Form)
-        self.pushButton_4.setGeometry(QtCore.QRect(420, 240, 75, 23))
-        self.pushButton_4.setObjectName('pushbutton_4')
         self.TextEdit1 = QtWidgets.QPlainTextEdit(Form)
         self.TextEdit1.setGeometry(0, 315, 600, 75)
         self.TextEdit1.setObjectName('plainTextEdit1')
@@ -157,11 +156,8 @@ class Ui_Form(object):
         self.label_16.setGeometry(QtCore.QRect(445, 70, 150, 100))
         self.label_16.setWordWrap(True)
         self.label_16.setOpenExternalLinks(True)
-        self.pushButton_5 = QtWidgets.QPushButton(Form)
-        self.pushButton_5.setGeometry(QtCore.QRect(500, 240, 75, 23))
-        self.pushButton_5.setObjectName('pushbutton_5')
         self.pushButton_6 = QtWidgets.QPushButton(Form)
-        self.pushButton_6.setGeometry(QtCore.QRect(500, 200, 75, 33))
+        self.pushButton_6.setGeometry(QtCore.QRect(500, 235, 75, 33))
         self.pushButton_6.setObjectName('pushbutton_6')
         self.label_17 = QtWidgets.QLabel(Form)
         self.label_17.setGeometry(QtCore.QRect(0, 485, 378, 15))
@@ -178,24 +174,20 @@ class Ui_Form(object):
 
         self.process1 = QtCore.QProcess(Form)
         self.process1.readyRead.connect(self.minerOutput1)
-        global path
-        path = 'cpuminerrkz/'
 
         self.process2 = QtCore.QProcess(Form)
         self.process2.readyRead.connect(self.minerOutput2)
 
         self.pushButton.clicked.connect(self.cmd2)
+        self.pushButton.clicked.connect(self.stop_pool)
         self.pushButton_2.clicked.connect(self.cmd)
+        self.pushButton_2.clicked.connect(self.stop_solo)
         self.pushButton_3.clicked.connect(self.save_config)
-        self.pushButton_5.clicked.connect(self.process1.kill)
-        self.pushButton_4.clicked.connect(self.process2.kill)
         self.pushButton_6.clicked.connect(self.process1.kill)
         self.pushButton_6.clicked.connect(self.process2.kill)
         self.pushButton_6.clicked.connect(self.stop_and_quit)
         self.pushButton_2.setFont(QtGui.QFont("Nirmala UI", 8))
         self.pushButton_3.setFont(QtGui.QFont("Nirmala UI", 8))
-        self.pushButton_4.setFont(QtGui.QFont("Nirmala UI", 8))
-        self.pushButton_5.setFont(QtGui.QFont("Nirmala UI", 8))
         self.pushButton_6.setFont(QtGui.QFont("Nirmala UI", 8))
         self.pushButton.setFont(QtGui.QFont("Nirmala UI", 8))
 
@@ -203,6 +195,28 @@ class Ui_Form(object):
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
+
+    def start_pool(self):
+        self.pushButton.setText('Start Pool')
+        self.pushButton.clicked.connect(self.cmd2)
+        self.pushButton.clicked.connect(self.stop_pool)
+
+    def stop_pool(self):
+        self.pushButton.setText('Stop Pool')
+        self.pushButton.clicked.disconnect()
+        self.pushButton.clicked.connect(self.process2.kill)
+        self.pushButton.clicked.connect(self.start_pool)
+
+    def start_solo(self):
+        self.pushButton_2.setText('Start Solo')
+        self.pushButton_2.clicked.connect(self.cmd)
+        self.pushButton_2.clicked.connect(self.stop_solo)
+
+    def stop_solo(self):
+        self.pushButton_2.setText('Stop Solo')
+        self.pushButton_2.clicked.disconnect()
+        self.pushButton_2.clicked.connect(self.process1.kill)
+        self.pushButton_2.clicked.connect(self.start_solo)
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
@@ -225,8 +239,6 @@ class Ui_Form(object):
         self.label_11.setText(_translate("Form", "<html><head/><body><p><span style=\" font-size:7.5pt\">CPU Cores:</span></p></body></html>"))
         self.label_12.setText(_translate("Form", "<html><head/><body><p><span style=\" font-size:7.5pt\">(According to actual cpu thread count)</span></p></body></html>"))
         self.pushButton.setText(_translate("Form", "Start Pool!"))
-        self.pushButton_4.setText(_translate("Form", "Stop Pool!"))
-        self.pushButton_5.setText(_translate("Form", "Stop Solo!"))
         self.pushButton_6.setText(_translate("Form", "Stop Miners \nand Exit"))
         self.lineEdit_4.setPlaceholderText(_translate("Form", "Pool password optional"))
         self.label_13.setText(_translate("Form", "<html><head/><body><p><span style=\" font-size:7.5pt\">Algoritm:</span></p></body></html>"))
@@ -248,12 +260,12 @@ class Ui_Form(object):
         self.process2.start(path + './cpuminer -a ' + self.combobox.currentText() + ' -o ' + self.lineEdit.text() + ' --no-longpoll -u ' + self.lineEdit_2.text() + ' -p' + self.lineEdit_4.text() + ' -t' + self.lineEdit_5.text() + ' --api-bind=127.0.0.1:4049')
 
     def minerOutput1(self):
-        read1 = str(f'{self.process1.readAll()}')
+        read1 = str(self.process1.readAll())
         output1 = read1.replace('b"', '').replace("b'[", '[').replace('\\', '').replace('x1b[', '').replace('x1b[0m"', '').replace("rn'", '').replace("rn", '').replace('0m', '   ').replace('36m', '     ').replace('31m', '    ').replace('01;37m', '    ').replace('32m', '    ').replace(' "', '').replace("'power2b'", 'power2b').replace('n"', '').replace('n[', '[').replace("n'", ' ').replace(' net', '  net').replace(' n ', '').replace('.n', ' ').replace("b'n", ' ').replace('nnnnn', ' ').replace('Forkn', 'Fork').replace('sn', 's').replace('zS', 'z S').replace('Zn', 'Z ').replace('nS', ' S').replace('nnC', ' C')
         self.TextEdit1.appendHtml(output1)
 
     def minerOutput2(self):
-        read2 = str(f'{self.process2.readAll()}')
+        read2 = str(self.process2.readAll())
         output2 = read2.replace('b"', '').replace("b'[", '[').replace('\\', '').replace('x1b[', '').replace('x1b[0m"', '').replace("rn'", '').replace("rn", '').replace('0m', '    ').replace('36m', '    ').replace('31m', '    ').replace('01;37m', '    ').replace('32m', '    ').replace(' "', '').replace("'power2b'", 'power2b').replace('n"', '').replace('n[', '[').replace("n'", ' ').replace(' net', '  net').replace(' n ', '').replace('.n', ' ').replace("b'n", ' ').replace('nnnnn', ' ').replace('Forkn', 'Fork').replace('sn', 's').replace('zS', 'z S').replace('Zn', 'Z ').replace('nS', ' S').replace('nnC', ' C')
         self.TextEdit2.appendHtml(output2)
 
@@ -283,4 +295,4 @@ if __name__ == "__main__":
     ui.setupUi(Form)
     Form.show()
     sys.exit(app.exec_())
-
+    
