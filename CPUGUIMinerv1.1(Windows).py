@@ -24,12 +24,10 @@
 
 import json
 import sys
-import psutil
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 path = 'cpuminerrkz'
-print(psutil.sensors_temperatures)
 
 class Ui_Form(object):
 
@@ -189,10 +187,6 @@ class Ui_Form(object):
         self.label_20.setGeometry(QtCore.QRect(0, 530, 270, 15))
         self.label_20.setTextInteractionFlags(QtCore.Qt.TextSelectableByMouse)
 
-        self.label_21 = QtWidgets.QPlainTextEdit(Form)
-        self.label_21.setGeometry(QtCore.QRect(500, 292, 100, 24))
-        self.label_21.setDisabled(True)
-
         self.process1 = QtCore.QProcess(Form)
         self.process1.readyRead.connect(self.minerOutput1)
 
@@ -264,18 +258,14 @@ class Ui_Form(object):
         self.label_18.setText(_translate("Form", "BTC: bc1qdyxqyunfyj7ejrvw8zsun8582vazktejp6azsu"))
         self.label_19.setText(_translate("Form", "ETH: 0xd92e51C7BBF45FC4E975d0331b4d60c126D9AdF4"))
         self.label_20.setText(_translate("Form", "DOGE: DCeJfVfwTeXFwv3JNyjeQWbFaYmMCcsR4X"))
-        self.label_21.setPlainText(_translate("Form", "Miner: Not Active"))
-
 
     def cmd(self):
         self.TextEdit1.clear()
         self.process1.start(path + '\\cpuminer.exe -a ' + self.combobox.currentText() +' -o ' + self.lineEdit.text() +' --no-longpoll -u ' + self.lineEdit_3.text() + ' -p ' + self.lineEdit_4.text() + ' --coinbase-addr=' + self.lineEdit_2.text() + ' -t' + self.lineEdit_5.text() + '--api-bind=127.0.0.1:4048')
-        self.label_21.setPlainText('Miner: Active')
 
     def cmd2(self):
         self.TextEdit2.clear()
         self.process2.start(path + '\\cpuminer.exe -a ' + self.combobox.currentText() + ' -o ' + self.lineEdit.text() + ' --no-longpoll -u ' + self.lineEdit_2.text() + ' -p' + self.lineEdit_4.text() + ' -t' + self.lineEdit_5.text() + ' --api-bind=127.0.0.1:4049')
-        self.label_21.setPlainText('Miner: Active')
 
     def minerOutput1(self):
         read1 = str(f'{self.process1.readAll()}')
