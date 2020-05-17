@@ -23,7 +23,7 @@ Special thanks to [itwysgsl](https://github.com/itwysgsl) and [Rick~z](https://g
 ![Solo and Pool Mining](https://i.imgur.com/sJ34kgL.png)
 
 **If you like this miner, please star and feel free to donate:**
-* BTC: bc1qdyxqyunfyj7ejrvw8zsun8582vazktejp6azsu
-* ETH: 0xd92e51C7BBF45FC4E975d0331b4d60c126D9AdF4
-* DOGE: DCeJfVfwTeXFwv3JNyjeQWbFaYmMCcsR4X
+* BTC: 1Gb8dYAKCDPLJrcoMyXxkigfRRQaY5bqg8
+* ETH: 0x01D14f9adFdad8760ac4443ECC9136699cb31332
+* DOGE: DBpQRejibiXaNUQSsEqPWWrwe32xgswmZm
 * SUGAR: sugar1qtl7u435t4jly2hdaa7hrcv5qkpvwa0spd9zzc7
