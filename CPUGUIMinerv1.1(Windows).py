@@ -1,5 +1,5 @@
-#   <This is the CPU GUI Miner, which is a light software that has a better frontend for easier use of running a miner.>
-#   Copyright (C) 2019  Nugetzrul3
+#   This is the CPU GUI Miner, which is a light software that has a better frontend for easier use of running a miner.
+#   Copyright (C) 2019-2020  Nugetzrul3
 
 #   This program is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
